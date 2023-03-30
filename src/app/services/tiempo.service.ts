@@ -1,0 +1,42 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { map, Observable, of } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class TiempoService {
+
+  apiKey = 'd54deded2e1b3905c00bcc67701d0487';
+
+  constructor(private http: HttpClient) { }
+
+  obtener() {
+    this.http.get(`http://api.openweathermap.org/data/2.5/forecast?id=524901&lang=es&units=metric&appid=${this.apiKey}`, { responseType: 'json' }).subscribe(
+      data => {
+        console.log('PRUEBA')
+        console.log(data)
+        return data
+      }
+
+    );
+  }
+
+  getTiempoPorLatLon(lat: number, lon: number): Observable<any> {
+    return this.http.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=es&units=metric&appid=${this.apiKey}`, { responseType: 'json' })
+      .pipe(
+        map((response: any) => {
+          return response
+        })
+      )
+
+  }
+  getTiempoPorId(id: number): Observable<any> {
+    return this.http.get(`https://api.openweathermap.org/data/2.5/weather?id=${id}&lang=es&units=metric&appid=${this.apiKey}`, { responseType: 'json' })
+    .pipe(
+      map((response: any) => {
+        return response
+      })
+    )
+  }
+}
