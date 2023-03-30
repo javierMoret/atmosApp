@@ -25,6 +25,8 @@ export class AppComponent implements OnInit {
       this.tiempoService.getTiempoPorLatLon(this.latUser, this.lonUser).subscribe(data => {
         this.data = data;
         console.log('El usuario ha aceptado la ubicación y vive en: ', this.data.name);
+        console.log(data);
+        
       })
     }, (error)=>{
       console.log('El usuario ha rechazado la ubicación');

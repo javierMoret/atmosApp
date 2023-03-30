@@ -1,3 +1,18 @@
-Hola MUNDO
+<div *ngIf="data" class="container">
+  Ciudad: {{data.name}}
+  <br>
+  Tiempo: {{data.weather[0].description | titlecase}}
+  <br>
+  Temperatura actual: {{data.main.temp | aproximar}}ºC
+  <br>
+  Temperatura máx: {{data.main.temp_max | aproximar}}ºC
+  <br>
+  Temperatura min: {{data.main.temp_min | aproximar}}ºC
+  <br>
+  Humedad: {{data.main.humidity}}%
+  <br>
+  Presión: {{data.main.pressure}} hPa
+  <br>
+  Velocidad del viento: {{data.wind.speed}} km/h
 
-{{data}}
+</div>
