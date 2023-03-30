@@ -1,0 +1,61 @@
+
+.containerTiempo{
+    height: 65vh;
+    width: 35%;
+    background-color: white;
+    margin: auto;
+    margin-top: 12vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 25px;
+    box-shadow: 4px 4px 5px #00000099;
+    font-size: 18px;
+    font-weight: 500;
+}
+.inputBusqueda{
+    width: 50%;
+    height: 5vh;
+}
+.containerBusqueda{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+.containerInfo{
+    flex: 6;
+    display: flex;
+    justify-content: center;
+}
+.containerDato{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.icono{
+    height: 32px;
+    margin: 0 10px;
+}
+.label{
+    font-size: 16px;
+}
+.dato{
+    font-size: 25px;
+}
+.iconoTemp{
+    height: 50px;
+    margin: 0 10px;
+}
+.labelTemp{
+    font-size: 22px;
+}
+.datoTemp{
+    font-size: 35px;
+}
+.iconoTiempo{
+    height: 70px;
+}
+.logo{
+    width: 50%;
+    margin: auto;
+    margin-top: 3vh;
+}

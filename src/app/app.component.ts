@@ -10,6 +10,8 @@ export class AppComponent implements OnInit {
   title = 'atmosApp';
 
   data: any;
+  iconCode = "";
+  iconUrl = "";
   latUser: number | undefined;
   lonUser: number | undefined;
 
@@ -24,6 +26,9 @@ export class AppComponent implements OnInit {
       this.lonUser = position.coords.longitude;
       this.tiempoService.getTiempoPorLatLon(this.latUser, this.lonUser).subscribe(data => {
         this.data = data;
+        this.iconCode = data.weather[0].icon;
+        this.iconUrl = "http://openweathermap.org/img/w/" + this.iconCode + ".png";
+        document.getElementById('wicon')?.setAttribute('src',this.iconUrl)
         console.log('El usuario ha aceptado la ubicación y vive en: ', this.data.name);
         console.log(data);
         
@@ -33,10 +38,18 @@ export class AppComponent implements OnInit {
       
     });
 
+  }
 
-
-
-
+  cambiarCiudad(){
+    this.tiempoService.getTiempoPorId(524894).subscribe(data => {
+      this.data = data;
+      this.iconCode = data.weather[0].icon;
+      this.iconUrl = "http://openweathermap.org/img/w/" + this.iconCode + ".png";
+      document.getElementById('wicon')?.setAttribute('src',this.iconUrl)
+      console.log('El usuario ha aceptado la ubicación y vive en: ', this.data.name);
+      console.log(data);
+      
+    })
   }
 
 }
