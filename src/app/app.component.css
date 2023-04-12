@@ -50,33 +50,49 @@
 .datoTemp{
     font-size: 35px;
 }
-.iconoTiempo{
-    height: 70px;
-}
+
 .logo{
     width: 50%;
     margin: auto;
     margin-top: 3vh;
 }
-.listaResultados{
+.listaResultados {
     list-style: none;
     width: 50%;
-    margin: 0;
-    padding: 0;
     margin: auto;
-}
-
-.resultado{
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .resultado {
     display: flex;
-    list-style: none;
     cursor: pointer;
-    height: 4vh;
+    height: 40px;
     align-items: center;
     padding-left: 5%;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
     border-left: 1px solid black;
-}
+  }
 .resultado:hover{
     background-color: #3581d170;
 }
+.containerConjunto{
+    display: flex;
+    justify-content: center;
+}
+.containerInfoBasica{
+    height: 30vh;
+}
+.iconoGrande{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.iconoTiempo{
+    display: flex;
+    justify-content: center;
+    height: 25vh;
+}
+

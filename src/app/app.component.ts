@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TiempoService } from './services/tiempo.service';
+import { Ciudad } from './interfaces/ciudad.interface';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,9 @@ export class AppComponent implements OnInit {
   lonUser: number | undefined;
   resultados: any = [];
   ciudades: any;
-  ciudadSeleccionada:any;
+  ciudadSeleccionada: any;
+  query: string = "";
+  ciudadesConjunto: Ciudad[] = []
 
   constructor(private tiempoService: TiempoService) { }
 
@@ -31,7 +34,8 @@ export class AppComponent implements OnInit {
         this.data = data;
         this.iconCode = data.weather[0].icon;
         this.iconUrl = "http://openweathermap.org/img/w/" + this.iconCode + ".png";
-        this.ciudadSeleccionada=data;
+        this.ciudadSeleccionada = data;
+        this.query=`${this.ciudadSeleccionada.name} (${this.ciudadSeleccionada.sys.country})`;
         document.getElementById('wicon')?.setAttribute('src', this.iconUrl)
         console.log('El usuario ha aceptado la ubicación y vive en: ', this.data.name);
         console.log(data);
@@ -63,9 +67,9 @@ export class AppComponent implements OnInit {
   }
 
   buscar(busqueda: string) {
-    this.resultados = []
-    this.ciudades.forEach((ciudad: any) => {
-      if (this.resultados.length < 3) {
+    if(busqueda.length>2){
+      this.resultados = []
+      this.ciudades.forEach((ciudad: any) => {
         if (busqueda == "" || busqueda == undefined) {
           this.resultados.push(ciudad)
         } else {
@@ -73,27 +77,34 @@ export class AppComponent implements OnInit {
             this.resultados.push(ciudad)
           }
         }
-      }
-    })
-    console.log(this.resultados);
-    
+      })
+      console.log(this.resultados);
+    }
+
+
   }
 
   limpiar() {
     this.resultados = []
   }
-  seleccionarCiudad(ciudad:string, pais:string){
+  seleccionarCiudad(ciudad: string, pais: string) {
 
-    this.tiempoService.getTiempoPorNombre(ciudad,pais).subscribe(res => {
-      if(res!=undefined && res!=""){
-        this.ciudadSeleccionada=res;
+    this.tiempoService.getTiempoPorNombre(ciudad, pais).subscribe(res => {
+      if (res != undefined && res != "") {
+        this.ciudadSeleccionada = res;
         this.iconCode = res.weather[0].icon;
         this.iconUrl = "http://openweathermap.org/img/w/" + this.iconCode + ".png";
         document.getElementById('wicon')?.setAttribute('src', this.iconUrl)
       }
     })
-    this.resultados=[]
+    this.resultados = []
 
+  }
+
+  addCiudad(){
+    this.ciudadesConjunto.push(this.ciudadSeleccionada)
+    console.log(this.ciudadesConjunto);
+    
   }
 
 }
