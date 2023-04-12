@@ -2,14 +2,17 @@
 <div class="containerTiempo">
   <img src="../assets/icons/facebook_cover_photo_1.png" class="logo" alt="">
   <div class="containerBusqueda">
-    <input type="text" class="inputBusqueda" [value]="data.name">
+    <input type="text" class="inputBusqueda" value="{{ciudadSeleccionada.name}}, {{ciudadSeleccionada.sys.country}}">
   </div>
+  <ul *ngFor="let ciudad of resultados" class="listaResultados">
+    <li class="resultado" (click)="seleccionarCiudad(ciudad.name,ciudad.country)">{{ciudad.name}}, {{ciudad.country}}</li>
+  </ul>
   <div class="row containerInfo">
     <div class="row">
       <div class="containerDato">
         <img src="../assets/icons/temperature-half-solid.svg" class="iconoTemp" alt="">
         <div class="info">
-          <div class="datoTemp">{{data.main.temp | aproximar}}ºC</div>
+          <div class="datoTemp">{{ciudadSeleccionada.main.temp | aproximar}}ºC</div>
           <div class="labelTemp">Temperatura</div>
         </div>
       </div>
@@ -18,7 +21,7 @@
       <div class="col-4 containerDato">
         <div id="icon"><img class="iconoTiempo" id="wicon" src="" alt="Icono tiempo"></div>
         <div class="info">
-          <div class="dato">{{data.weather[0].description | titlecase}}</div>
+          <div class="dato">{{ciudadSeleccionada.weather[0].description | titlecase}}</div>
           <div class="label">Tiempo</div>
         </div>
 
@@ -26,7 +29,7 @@
       <div class="col-4 containerDato">
         <img src="../assets/icons/temperature-arrow-up-solid.svg" class="icono" alt="">
         <div class="info">
-          <div class="dato">{{data.main.temp_max | aproximar}}ºC</div>
+          <div class="dato">{{ciudadSeleccionada.main.temp_max | aproximar}}ºC</div>
           <div class="label">Máxima</div>
         </div>
 
@@ -34,7 +37,7 @@
       <div class="col-4 containerDato">
         <img src="../assets/icons/temperature-arrow-down-solid.svg" class="icono" alt="">
         <div class="info">
-          <div class="dato">{{data.main.temp_min | aproximar}}ºC</div>
+          <div class="dato">{{ciudadSeleccionada.main.temp_min | aproximar}}ºC</div>
           <div class="label">Mínima</div>
         </div>
       </div>
@@ -44,14 +47,14 @@
       <div class="col-4 containerDato">
         <img src="../assets/icons/droplet-solid.svg" class="icono" alt="">
         <div class="info">
-          <div class="dato">{{data.main.humidity}}%</div>
+          <div class="dato">{{ciudadSeleccionada.main.humidity}}%</div>
           <div class="label">Humedad</div>
         </div>
       </div>
       <div class="col-4 containerDato">
         <img src="../assets/icons/clock-regular.svg" class="icono" alt="">
         <div class="info">
-          <div class="dato">{{data.main.pressure}} hPa</div>
+          <div class="dato">{{ciudadSeleccionada.main.pressure}} hPa</div>
           <div class="label">Presión</div>
         </div>
 
@@ -59,7 +62,7 @@
       <div class="col-4 containerDato">
         <img src="../assets/icons/wind-solid.svg" class="icono" alt="">
         <div class="info">
-          <div class="dato">{{data.wind.speed}} km/h</div>
+          <div class="dato">{{ciudadSeleccionada.wind.speed}} km/h</div>
           <div class="label">Viento</div>
         </div>
 
@@ -68,4 +71,4 @@
   </div>
 </div>
 
-<!-- <button (click)="cambiarCiudad()">Cambiar a moscu</button> -->
+<button (click)="buscar('mál')">Cambiar a moscu</button>

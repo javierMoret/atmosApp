@@ -1,6 +1,6 @@
 
 .containerTiempo{
-    height: 65vh;
+    height: 70vh;
     width: 35%;
     background-color: white;
     margin: auto;
@@ -18,7 +18,6 @@
 }
 .containerBusqueda{
     display: flex;
-    flex: 1;
     justify-content: center;
 }
 .containerInfo{
@@ -58,4 +57,26 @@
     width: 50%;
     margin: auto;
     margin-top: 3vh;
+}
+.listaResultados{
+    list-style: none;
+    width: 50%;
+    margin: 0;
+    padding: 0;
+    margin: auto;
+}
+
+.resultado{
+    display: flex;
+    list-style: none;
+    cursor: pointer;
+    height: 4vh;
+    align-items: center;
+    padding-left: 5%;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+.resultado:hover{
+    background-color: #3581d170;
 }

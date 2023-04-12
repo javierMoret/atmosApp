@@ -14,6 +14,9 @@ export class AppComponent implements OnInit {
   iconUrl = "";
   latUser: number | undefined;
   lonUser: number | undefined;
+  resultados: any = [];
+  ciudades: any;
+  ciudadSeleccionada:any;
 
   constructor(private tiempoService: TiempoService) { }
 
@@ -28,28 +31,69 @@ export class AppComponent implements OnInit {
         this.data = data;
         this.iconCode = data.weather[0].icon;
         this.iconUrl = "http://openweathermap.org/img/w/" + this.iconCode + ".png";
-        document.getElementById('wicon')?.setAttribute('src',this.iconUrl)
+        this.ciudadSeleccionada=data;
+        document.getElementById('wicon')?.setAttribute('src', this.iconUrl)
         console.log('El usuario ha aceptado la ubicación y vive en: ', this.data.name);
         console.log(data);
-        
+
       })
-    }, (error)=>{
+    }, (error) => {
       console.log('El usuario ha rechazado la ubicación');
-      
+
     });
+    this.tiempoService.getCiudades().subscribe(ciudades => {
+      this.ciudades = ciudades
+      console.log(this.ciudades);
+
+    })
+
 
   }
 
-  cambiarCiudad(){
+  cambiarCiudad() {
     this.tiempoService.getTiempoPorId(524894).subscribe(data => {
       this.data = data;
       this.iconCode = data.weather[0].icon;
       this.iconUrl = "http://openweathermap.org/img/w/" + this.iconCode + ".png";
-      document.getElementById('wicon')?.setAttribute('src',this.iconUrl)
+      document.getElementById('wicon')?.setAttribute('src', this.iconUrl)
       console.log('El usuario ha aceptado la ubicación y vive en: ', this.data.name);
       console.log(data);
-      
+
     })
+  }
+
+  buscar(busqueda: string) {
+    this.resultados = []
+    this.ciudades.forEach((ciudad: any) => {
+      if (this.resultados.length < 3) {
+        if (busqueda == "" || busqueda == undefined) {
+          this.resultados.push(ciudad)
+        } else {
+          if (ciudad.name.toLowerCase().startsWith(busqueda.toLowerCase())) {
+            this.resultados.push(ciudad)
+          }
+        }
+      }
+    })
+    console.log(this.resultados);
+    
+  }
+
+  limpiar() {
+    this.resultados = []
+  }
+  seleccionarCiudad(ciudad:string, pais:string){
+
+    this.tiempoService.getTiempoPorNombre(ciudad,pais).subscribe(res => {
+      if(res!=undefined && res!=""){
+        this.ciudadSeleccionada=res;
+        this.iconCode = res.weather[0].icon;
+        this.iconUrl = "http://openweathermap.org/img/w/" + this.iconCode + ".png";
+        document.getElementById('wicon')?.setAttribute('src', this.iconUrl)
+      }
+    })
+    this.resultados=[]
+
   }
 
 }
