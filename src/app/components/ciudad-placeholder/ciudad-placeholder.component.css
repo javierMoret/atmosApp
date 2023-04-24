@@ -1,0 +1,23 @@
+.containerCiudad{
+    background-color: #FFFFFF50;
+    display: flex;
+    width: 25vh;
+    height: 30vh;
+    margin-right: 5vh;
+    border-radius: 10px;
+    box-shadow: 4px 4px 5px #00000055;
+    justify-content: center;
+    align-items: center;
+
+}
+.containerAdd{
+    color: #FFFFFF70;
+    font-size: 120px;
+    border-radius: 50px;
+    margin-bottom: 15%;
+
+}
+.icono{
+    filter: brightness(40%);
+    width: 100px;
+}

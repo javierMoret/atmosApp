@@ -8,13 +8,15 @@ import { AproximarPipe } from './pipes/aproximar.pipe';
 import { FormsModule } from '@angular/forms';
 import { VerCiudadComponent } from './components/ver-ciudad/ver-ciudad.component';
 import { ListadoFavoritosComponent } from './components/listado-favoritos/listado-favoritos.component';
+import { CiudadPlaceholderComponent } from './components/ciudad-placeholder/ciudad-placeholder.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AproximarPipe,
     VerCiudadComponent,
-    ListadoFavoritosComponent
+    ListadoFavoritosComponent,
+    CiudadPlaceholderComponent
   ],
   imports: [
     BrowserModule,

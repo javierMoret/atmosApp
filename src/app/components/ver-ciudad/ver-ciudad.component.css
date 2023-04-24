@@ -1,0 +1,42 @@
+.containerCiudad{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 7%;
+    width: 25vh;
+    height: 30vh;
+    border-radius: 10px;
+    box-shadow: 4px 4px 5px #00000099;
+    margin-right: 5vh;
+
+}
+.cabecera{
+    display: flex;
+    justify-content: space-between;
+    font-size: 25px;
+    margin-bottom: 5%;
+}
+.label{
+    font-size: 18px;
+}
+.dato{
+    font-size: 16px;
+    color: #0071DA;
+    font-weight: 500;
+}
+.datos{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+
+}
+.fila{
+    display: flex;
+    justify-content: space-between;
+}
+.parte{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

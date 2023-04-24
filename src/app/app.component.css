@@ -1,11 +1,13 @@
 
 .containerTiempo{
-    height: 70vh;
-    width: 35%;
+    height: auto;
+    min-width: 65vh;
+    max-width: 65vh;
     background-color: white;
     margin: auto;
-    margin-top: 12vh;
+    margin-top: 6vh;
     display: flex;
+    align-items: center;
     flex-direction: column;
     border-radius: 25px;
     box-shadow: 4px 4px 5px #00000099;
@@ -13,11 +15,11 @@
     font-weight: 500;
 }
 .inputBusqueda{
-    width: 50%;
     height: 5vh;
 }
 .containerBusqueda{
     display: flex;
+    width: 85%;
     justify-content: center;
 }
 .containerInfo{
@@ -53,12 +55,11 @@
 
 .logo{
     width: 50%;
-    margin: auto;
     margin-top: 3vh;
 }
 .listaResultados {
     list-style: none;
-    width: 50%;
+    width: 85%;
     margin: auto;
     padding: 0;
     max-height: 200px;
@@ -83,7 +84,10 @@
     justify-content: center;
 }
 .containerInfoBasica{
-    height: 30vh;
+    display: flex;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    justify-content: space-between;
 }
 .iconoGrande{
     display: flex;
@@ -93,6 +97,20 @@
 .iconoTiempo{
     display: flex;
     justify-content: center;
-    height: 25vh;
+    width: 120px;
+}
+.datosBasicos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mainInfo{
+    display: flex;
+    margin-right: 10vh;
+    justify-content: center;
+    align-items: center;
+}
+.containerTemp{
+    font-size: 26px;
 }
 
