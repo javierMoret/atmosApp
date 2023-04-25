@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { VerCiudadComponent } from './components/ver-ciudad/ver-ciudad.component';
 import { ListadoFavoritosComponent } from './components/listado-favoritos/listado-favoritos.component';
 import { CiudadPlaceholderComponent } from './components/ciudad-placeholder/ciudad-placeholder.component';
+import { LoginComponent } from './pages/login/login.component';
+import { MainComponent } from './pages/main/main.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { CiudadPlaceholderComponent } from './components/ciudad-placeholder/ciud
     AproximarPipe,
     VerCiudadComponent,
     ListadoFavoritosComponent,
-    CiudadPlaceholderComponent
+    CiudadPlaceholderComponent,
+    LoginComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,

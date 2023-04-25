@@ -3,16 +3,18 @@
     display: flex;
     flex-direction: column;
     padding: 7%;
-    width: 25vh;
+    width: 27vh;
     height: 30vh;
     border-radius: 10px;
     box-shadow: 4px 4px 5px #00000099;
     margin-right: 5vh;
 
 }
+
 .cabecera{
     display: flex;
     justify-content: space-between;
+
     font-size: 25px;
     margin-bottom: 5%;
 }

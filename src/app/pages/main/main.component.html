@@ -1,0 +1,52 @@
+<ng-container *ngIf="!userService.user; else error403">
+  <div class="background" style="background-image: url('../../../assets/images/{{fondo}}.jpg');">
+    <div class="containerTiempo">
+      <img src="../assets/icons/facebook_cover_photo_1.png" class="logo" alt="">
+      <div class="containerBusqueda input-group">
+        <input type="text" #myInput class="form-control" placeholder="" (input)="buscar(query)" [(ngModel)]="query" value="{{ciudadSeleccionada.name}} ({{ciudadSeleccionada.sys.country}})" aria-label="Example text with button addon" aria-describedby="button-addon1">
+        <button (click)="addCiudad()" [disabled]="ciudadesConjunto.length>4" class="btn btn-outline-secondary" type="button" id="button-addon1">Añadir a conjunto</button>
+      </div>
+      <ul *ngIf="resultados.length>0" class="listaResultados">
+        <li  *ngFor="let ciudad of resultados" class="resultado" (click)="seleccionarCiudad(ciudad.name,ciudad.country)">
+          {{ciudad.name}} ({{ciudad.country}})
+        </li>
+      </ul>
+      <div>
+        <div class="containerInfoBasica">
+          <div class="mainInfo">
+            <div class="iconoGrande">
+              <div  id="icon"><img class="iconoTiempo" id="wicon" src="" alt="Icono tiempo"></div>
+            </div>
+            <div class="containerTemp">
+              <div>{{ciudadSeleccionada.main.temp | aproximar}}ºC</div>
+              <div>{{ciudadSeleccionada.weather[0].description | titlecase}}</div>
+            </div>
+          </div>
+    
+          <div class=" datosBasicos">
+    
+            <div class="containerDetalles">
+              <div class="detalle">Máxima: {{ciudadSeleccionada.main.temp_max |aproximar}}ºC</div>
+              <div class="detalle">Mínima: {{ciudadSeleccionada.main.temp_min |aproximar}}ºC</div>
+              <div class="detalle">Humedad: {{ciudadSeleccionada.main.humidity}}%</div>
+              <div class="detalle">Viento: {{ciudadSeleccionada.wind.speed}}km/h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="containerConjunto mt-5">
+      <app-ver-ciudad *ngFor="let ciudad of ciudadesConjunto" [data]="ciudad"></app-ver-ciudad>
+      <app-ciudad-placeholder *ngIf="ciudadesConjunto.length<5"></app-ciudad-placeholder>
+    </div>
+  </div>
+
+</ng-container>
+
+<ng-template #error403>
+  <div class="m-5">
+    <h2>Error 403: Debes iniciar sesión correctamente</h2>
+    <a [routerLink]="['/login']">Ir a Inicio de Sesión</a>
+  </div>
+</ng-template>
