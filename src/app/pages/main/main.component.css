@@ -1,11 +1,13 @@
 .background{
-    height: 100vh;
+    min-height: 100vh;
+    max-height: 100%;
     background-size: cover;
-    padding: 5%;
+    padding: 3%;
     background-position: center center;
     background-repeat: no-repeat;
     transition: all 1s;
 }
+
 .containerTiempo{
     height: auto;
     min-width: 65vh;

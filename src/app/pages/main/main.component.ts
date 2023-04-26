@@ -20,8 +20,10 @@ export class MainComponent implements OnInit {
   ciudades: any;
   ciudadSeleccionada: any;
   query: string = "";
-  ciudadesConjunto: Ciudad[] = []
+  ciudadesConjunto: number[] = []
+  listaConjuntos: Ciudad[][] = []
   fondo: string = 'soleado'
+  cargado: boolean = false;
 
   constructor(public userService: UserService, private tiempoService: TiempoService) { }
 
@@ -65,10 +67,12 @@ export class MainComponent implements OnInit {
           default:
             this.fondo = 'soleado'
         }
+        this.cargado = true;
         this.query = `${this.ciudadSeleccionada.name} (${this.ciudadSeleccionada.sys.country})`;
         document.getElementById('wicon')?.setAttribute('src', this.iconUrl)
         console.log('El usuario ha aceptado la ubicación y vive en: ', this.data.name);
         console.log(data);
+
 
       })
     }, (error) => {
@@ -80,6 +84,7 @@ export class MainComponent implements OnInit {
       console.log(this.ciudades);
 
     })
+
 
 
   }
@@ -119,6 +124,11 @@ export class MainComponent implements OnInit {
 
   limpiar() {
     this.resultados = []
+  }
+  eliminarCiudad(i: number){
+    this.ciudadesConjunto.splice(i,1)
+    console.log(this.ciudadesConjunto);
+    
   }
   seleccionarCiudad(ciudad: string, pais: string) {
 
@@ -164,7 +174,7 @@ export class MainComponent implements OnInit {
   }
 
   addCiudad() {
-    this.ciudadesConjunto.push(this.ciudadSeleccionada)
+    this.ciudadesConjunto.push(this.ciudadSeleccionada.id)
     console.log(this.ciudadesConjunto);
 
   }

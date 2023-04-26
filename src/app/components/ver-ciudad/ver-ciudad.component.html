@@ -1,36 +1,39 @@
-<div class="containerCiudad">
-    <div class="cabecera">
-        <div class="titulo">{{ciudad.nombre}}</div>
-        <div class="temperatura">{{ciudad.temp | aproximar}}ºC</div>
+
+
+<ng-container *ngIf="cargado">
+    <div class="containerCiudad">
+        <div class="cabecera">
+            <div class="titulo">{{ciudad.nombre}}</div>
+            <div class="temperatura">{{ciudad.temp | aproximar}}ºC</div>
+        </div>
+        <div class="datos">
+            <div class="fila">
+                <div class="label">Tiempo</div>
+                <div class="dato">{{ciudad.tiempo | titlecase}}</div>
+            </div>
+            <div class="fila">
+                <div class="label">T. Máxima</div>
+                <div class="dato">{{ciudad.temp_max | aproximar}}ºC</div>
+            </div>
+            <div class="fila">
+                <div class="label">T. Mínima</div>
+                <div class="dato">{{ciudad.temp_min | aproximar}}ºC</div>
+            </div>
+            <div class="fila">
+                <div class="label">Humedad</div>
+                <div class="dato">{{ciudad.humedad}}%</div>
+    
+            </div>
+            <div class="fila">
+                <div class="label">Viento</div>
+                <div class="dato">{{ciudad.viento}} km/h</div>
+    
+            </div>
+            <div class="fila">
+                <div class="label">Presión</div>
+                <div class="dato">{{ciudad.presion}} hPa</div>
+            </div>
+        </div>
+    
     </div>
-    <div class="datos">
-        <div class="fila">
-            <div class="label">Tiempo</div>
-            <div class="dato">{{ciudad.tiempo | titlecase}}</div>
-        </div>
-        <div class="fila">
-            <div class="label">T. Máxima</div>
-            <div class="dato">{{ciudad.temp_max | aproximar}}ºC</div>
-        </div>
-        <div class="fila">
-            <div class="label">T. Mínima</div>
-            <div class="dato">{{ciudad.temp_min | aproximar}}ºC</div>
-        </div>
-        <div class="fila">
-            <div class="label">Humedad</div>
-            <div class="dato">{{ciudad.humedad}}%</div>
-
-        </div>
-        <div class="fila">
-            <div class="label">Viento</div>
-            <div class="dato">{{ciudad.viento}} km/h</div>
-
-        </div>
-        <div class="fila">
-            <div class="label">Presión</div>
-            <div class="dato">{{ciudad.presion}} hPa</div>
-
-        </div>
-    </div>
-
-</div>
+</ng-container>
