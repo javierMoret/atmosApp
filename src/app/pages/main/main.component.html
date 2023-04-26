@@ -1,40 +1,54 @@
-  <ng-container *ngIf="!userService.user; else error403">
+  <ng-container *ngIf="user; else error403">
     <div class="background" style="background-image: url('../../../assets/images/{{fondo}}.jpg');">
-      <div class="containerTiempo">
-        <img src="../assets/icons/facebook_cover_photo_1.png" class="logo" alt="">
-        <div class="containerBusqueda input-group">
-          <input type="text" #myInput class="form-control" placeholder="" (input)="buscar(query)" [(ngModel)]="query" value="{{ciudadSeleccionada.name}} ({{ciudadSeleccionada.sys.country}})" aria-label="Example text with button addon" aria-describedby="button-addon1">
-          <button (click)="addCiudad()" [disabled]="ciudadesConjunto.length>4" class="btn btn-outline-secondary" type="button" id="button-addon1">Añadir a conjunto</button>
-        </div>
-        <ul *ngIf="resultados.length>0" class="listaResultados">
-          <li  *ngFor="let ciudad of resultados" class="resultado" (click)="seleccionarCiudad(ciudad.name,ciudad.country)">
-            {{ciudad.name}} ({{ciudad.country}})
-          </li>
-        </ul>
-        <div>
-          <div class="containerInfoBasica">
-            <div class="mainInfo">
-              <div class="iconoGrande">
-                <div  id="icon"><img class="iconoTiempo" id="wicon" src="" alt="Icono tiempo"></div>
-              </div>
-              <div class="containerTemp">
-                <div>{{ciudadSeleccionada.main.temp | aproximar}}ºC</div>
-                <div>{{ciudadSeleccionada.weather[0].description | titlecase}}</div>
-              </div>
+      <div class="containerSuperior">
+        <div *ngIf="listaConjuntos.length>0" class="containerListadoConjuntos">
+          <div class="titulo">Conjuntos guardados</div>
+          <div class="conjuntos">
+            <div class="conjunto" (click)="seleccionarConjuntoCargar(i)" data-bs-toggle="modal" data-bs-target="#modalCargarConjunto" *ngFor="let conjunto of listaConjuntos; let i=index">
+              {{conjunto.nombre | titlecase}}
+              <mat-icon fontIcon="delete" class="iconEliminarConjunto" (click)="seleccionarConjuntoBorrar(i)" data-bs-toggle="modal" data-bs-target="#modalEliminarConjunto" ></mat-icon>
+
             </div>
-      
-            <div class=" datosBasicos">
-      
-              <div class="containerDetalles">
-                <div class="detalle">Máxima: {{ciudadSeleccionada.main.temp_max |aproximar}}ºC</div>
-                <div class="detalle">Mínima: {{ciudadSeleccionada.main.temp_min |aproximar}}ºC</div>
-                <div class="detalle">Humedad: {{ciudadSeleccionada.main.humidity}}%</div>
-                <div class="detalle">Viento: {{ciudadSeleccionada.wind.speed}}km/h</div>
+          </div>
+
+        </div>
+        <div class="containerTiempo">
+          <img src="../assets/icons/facebook_cover_photo_1.png" class="logo" alt="">
+          <div class="containerBusqueda input-group">
+            <input type="text" #myInput class="form-control" placeholder="" (input)="buscar(query)" [(ngModel)]="query" value="{{ciudadSeleccionada.name}} ({{ciudadSeleccionada.sys.country}})" aria-label="Example text with button addon" aria-describedby="button-addon1">
+            <button (click)="addCiudad()" [disabled]="ciudadesConjunto.length>4" class="btn btn-outline-secondary" type="button" id="button-addon1">Añadir a conjunto</button>
+          </div>
+          <ul *ngIf="resultados.length>0" class="listaResultados">
+            <li  *ngFor="let ciudad of resultados" class="resultado" (click)="seleccionarCiudad(ciudad.name,ciudad.country)">
+              {{ciudad.name}} ({{ciudad.country}})
+            </li>
+          </ul>
+          <div>
+            <div class="containerInfoBasica">
+              <div class="mainInfo">
+                <div class="iconoGrande">
+                  <div  id="icon"><img class="iconoTiempo" id="wicon" src="" alt="Icono tiempo"></div>
+                </div>
+                <div class="containerTemp">
+                  <div>{{ciudadSeleccionada.main.temp | aproximar}}ºC</div>
+                  <div>{{ciudadSeleccionada.weather[0].description | titlecase}}</div>
+                </div>
+              </div>
+        
+              <div class=" datosBasicos">
+        
+                <div class="containerDetalles">
+                  <div class="detalle">Máxima: {{ciudadSeleccionada.main.temp_max |aproximar}}ºC</div>
+                  <div class="detalle">Mínima: {{ciudadSeleccionada.main.temp_min |aproximar}}ºC</div>
+                  <div class="detalle">Humedad: {{ciudadSeleccionada.main.humidity}}%</div>
+                  <div class="detalle">Viento: {{ciudadSeleccionada.wind.speed}}km/h</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       
       <div class="containerConjunto mt-5">
         <div *ngFor="let ciudad of ciudadesConjunto; let i=index" class="aa">
@@ -42,6 +56,10 @@
           <button (click)="eliminarCiudad(i)" type="button" class="btn btn-danger mt-2">Eliminar</button>
         </div>
         <app-ciudad-placeholder *ngIf="ciudadesConjunto.length<5"></app-ciudad-placeholder>
+      </div>
+      <div class="btnGuardar mt-4">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalGuardarConjunto">Guardar conjunto</button>
+
       </div>
     </div>
   
@@ -54,3 +72,59 @@
     <a [routerLink]="['/login']">Ir a Inicio de Sesión</a>
   </div>
 </ng-template>
+
+<div class="modal fade" id="modalGuardarConjunto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">¿Qué nombre quieres ponerle al conjunto?</h5>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Nombre</span>
+          </div>
+          <input type="text" [(ngModel)]="nombreConjunto"  class="form-control" placeholder="Capitales europeas..." aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-success" [disabled]="nombreConjunto.trim()==''" (click)="guardarConjunto(nombreConjunto)" data-bs-dismiss="modal">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalEliminarConjunto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">¿Está seguro que quiere borrar el conjunto? </h5>
+      </div>
+      <div class="modal-body">
+        Esta acción será definitiva y de ninguna manera podrá recuperar el conjunto seleccionado.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="eliminarConjunto()" data-bs-dismiss="modal">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalCargarConjunto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">¿Está seguro que quiere cargar el conjunto? </h5>
+      </div>
+      <div class="modal-body">
+        Esta acción cargará el conjunto seleccionado y perderá el actual en caso de que no esté guardado.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="cargarConjunto()" data-bs-dismiss="modal">Cargar</button>
+      </div>
+    </div>
+  </div>
+</div>

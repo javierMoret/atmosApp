@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 export class MainComponent implements OnInit {
   title = 'atmosApp';
 
+  user: any;
   data: any;
   iconCode = "";
   iconUrl = "";
@@ -21,13 +22,21 @@ export class MainComponent implements OnInit {
   ciudadSeleccionada: any;
   query: string = "";
   ciudadesConjunto: number[] = []
-  listaConjuntos: Ciudad[][] = []
+  listaConjuntos: any[] = []
   fondo: string = 'soleado'
-  cargado: boolean = false;
+  cargado: boolean = false
+  nombreConjunto: string = ""
+  indiceConjuntoBorrar: any
+  indiceConjuntoCargar: any
 
   constructor(public userService: UserService, private tiempoService: TiempoService) { }
 
   ngOnInit() {
+    this.user = window.localStorage.getItem('user')
+    this.user = JSON.parse(this.user)
+    this.userService.user=this.user
+    
+    
     // this.data = this.tiempoService.obtener()
     // this.data = this.tiempoService.getTiempoPorLatLon(33.44,94.04)
     // this.data = this.tiempoService.getTiempoPorId(6359472)
@@ -52,6 +61,7 @@ export class MainComponent implements OnInit {
             this.fondo = 'nublado'
             break;
           case 'lluvia':
+          case 'lluvia ligera':
             this.fondo = 'lluvia'
             break;
           case 'nieve':
@@ -122,14 +132,11 @@ export class MainComponent implements OnInit {
 
   }
 
+
   limpiar() {
     this.resultados = []
   }
-  eliminarCiudad(i: number){
-    this.ciudadesConjunto.splice(i,1)
-    console.log(this.ciudadesConjunto);
-    
-  }
+
   seleccionarCiudad(ciudad: string, pais: string) {
 
     this.tiempoService.getTiempoPorNombre(ciudad, pais).subscribe(res => {
@@ -147,6 +154,7 @@ export class MainComponent implements OnInit {
             this.fondo = 'nublado'
             break;
           case 'lluvia':
+          case 'lluvia ligera':
             this.fondo = 'lluvia'
             break;
           case 'nieve':
@@ -175,7 +183,36 @@ export class MainComponent implements OnInit {
 
   addCiudad() {
     this.ciudadesConjunto.push(this.ciudadSeleccionada.id)
+
     console.log(this.ciudadesConjunto);
 
+  }
+  eliminarConjunto(){
+    this.listaConjuntos.splice(this.indiceConjuntoBorrar,1)
+  }
+  seleccionarConjuntoBorrar(i:number){
+    this.indiceConjuntoBorrar = i
+  }
+  seleccionarConjuntoCargar(i:number){
+    this.indiceConjuntoCargar = i
+  }
+  cargarConjunto(){
+    this.ciudadesConjunto=[]
+    this.ciudadesConjunto = this.listaConjuntos[this.indiceConjuntoCargar].ciudades
+  }
+  eliminarCiudad(i: number){
+    this.ciudadesConjunto.splice(i,1)
+    
+  }
+  guardarConjunto(nombre: string){
+    let nuevoConjunto = {
+      nombre: nombre,
+      ciudades: this.ciudadesConjunto
+    }
+    this.listaConjuntos.push(nuevoConjunto)
+    this.ciudadesConjunto=[]
+    this.nombreConjunto = ""
+    console.log(this.listaConjuntos);
+    console.log(nuevoConjunto);
   }
 }

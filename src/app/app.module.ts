@@ -10,7 +10,9 @@ import { VerCiudadComponent } from './components/ver-ciudad/ver-ciudad.component
 import { ListadoFavoritosComponent } from './components/listado-favoritos/listado-favoritos.component';
 import { CiudadPlaceholderComponent } from './components/ciudad-placeholder/ciudad-placeholder.component';
 import { LoginComponent } from './pages/login/login.component';
+import {MatIconModule} from '@angular/material/icon';
 import { MainComponent } from './pages/main/main.component';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { MainComponent } from './pages/main/main.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatIconModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

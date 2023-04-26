@@ -121,4 +121,62 @@
 .containerTemp{
     font-size: 26px;
 }
+.btnGuardar{
+    display: flex;
+    justify-content: center;
+}
+.modal-header{
+    display: flex;
+    justify-content: center;
+}
+.containerSuperior{
+}
+.containerListadoConjuntos{
+    z-index: 33;
+    position: fixed;
+    background-color: #0071dA;
+    width: 15%;  
+    border-radius: 10px ;
+    box-shadow: 4px 4px 5px #00000099;
 
+
+}
+.conjuntos{
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 0px 0px 10px 10px;
+}
+.titulo{
+    height: 6vh;
+    border-bottom: 1px solid black;
+    color: WHITE;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+}
+.conjunto{
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    height: 5vh;
+    border-bottom: 1px solid black;
+    padding: 4%;
+    display: flex;
+    align-items: center;
+    transition: all 0.4s;
+}
+.conjunto:hover{
+    background-color: #FFFFFFaa;
+    transition: all 0.4s;
+}
+.iconEliminarConjunto{
+    color: white;
+    transition: all 0.4s;
+}
+.conjunto:hover .iconEliminarConjunto{
+    color: red;
+    cursor: pointer;
+    transition: all 0.4s;
+}

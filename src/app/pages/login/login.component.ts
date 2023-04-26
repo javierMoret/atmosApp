@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
@@ -11,7 +11,12 @@ const provider = new GoogleAuthProvider();
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+
+  ngOnInit(): void {
+    window.localStorage.removeItem('user')
+  }
+
   firebaseConfig = {
     apiKey: "AIzaSyD8rRQBvcR97vfG2QagXHZunKp3pTWdRYU",
     authDomain: "atmosapp-b42d9.firebaseapp.com",
@@ -41,6 +46,9 @@ export class LoginComponent {
         console.log(result);
         
         this.userService.user = user
+        const userString = JSON.stringify(user)
+        window.localStorage.setItem('user',userString) 
+
         
         this.router.navigate(['/home'])
         
