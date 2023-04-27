@@ -16,7 +16,7 @@
           <img src="../assets/icons/facebook_cover_photo_1.png" class="logo" alt="">
           <div class="containerBusqueda input-group">
             <input type="text" #myInput class="form-control" placeholder="" (input)="buscar(query)" [(ngModel)]="query" value="{{ciudadSeleccionada.name}} ({{ciudadSeleccionada.sys.country}})" aria-label="Example text with button addon" aria-describedby="button-addon1">
-            <button (click)="addCiudad()" [disabled]="ciudadesConjunto.length>4" class="btn btn-outline-secondary" type="button" id="button-addon1">Añadir a conjunto</button>
+            <button (click)="addCiudad()" [disabled]="ciudadesConjunto.length>4" class="btn btn-outline-primary" type="button" id="button-addon1">Añadir a conjunto</button>
           </div>
           <ul *ngIf="resultados.length>0" class="listaResultados">
             <li  *ngFor="let ciudad of resultados" class="resultado" (click)="seleccionarCiudad(ciudad.name,ciudad.country)">
@@ -30,7 +30,7 @@
                   <div  id="icon"><img class="iconoTiempo" id="wicon" src="" alt="Icono tiempo"></div>
                 </div>
                 <div class="containerTemp">
-                  <div>{{ciudadSeleccionada.main.temp | aproximar}}ºC</div>
+                  <div class="mb-2" >{{ciudadSeleccionada.main.temp | aproximar}}ºC</div>
                   <div>{{ciudadSeleccionada.weather[0].description | titlecase}}</div>
                 </div>
               </div>

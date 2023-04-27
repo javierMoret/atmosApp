@@ -4,6 +4,7 @@ import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { getDatabase, push, ref, set } from 'firebase/database';
 
 const provider = new GoogleAuthProvider();
 @Component({
@@ -24,11 +25,15 @@ export class LoginComponent implements OnInit{
     storageBucket: "atmosapp-b42d9.appspot.com",
     messagingSenderId: "170212286005",
     appId: "1:170212286005:web:32a2ee3e41625c5018db7c",
-    measurementId: "G-M3GGYXNDT9"
+    measurementId: "G-M3GGYXNDT9",
+    databaseURL: "https://atmosapp-b42d9-default-rtdb.europe-west1.firebasedatabase.app/"
+
   };
   app = initializeApp(this.firebaseConfig);
   analytics = getAnalytics(this.app);
   auth = getAuth();
+  database = getDatabase(this.app)
+
 
   constructor(private userService: UserService, private router: Router){}
 
@@ -44,6 +49,11 @@ export class LoginComponent implements OnInit{
         // The signed-in user info.
         const user = result.user;
         console.log(result);
+        // const usersRef = ref(this.database, user.uid);
+        // const userData = {
+        //   conjuntos: 'afsdf',
+        // }
+        // set(usersRef,userData)
         
         this.userService.user = user
         const userString = JSON.stringify(user)

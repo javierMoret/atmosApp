@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TiempoService } from '../../services/tiempo.service';
 import { Ciudad } from '../../interfaces/ciudad.interface';
 import { UserService } from 'src/app/services/user.service';
+import { initializeApp } from "firebase/app";
+import { get, getDatabase, push, ref, set } from "firebase/database";
 
 @Component({
   selector: 'app-main',
@@ -29,14 +31,47 @@ export class MainComponent implements OnInit {
   indiceConjuntoBorrar: any
   indiceConjuntoCargar: any
 
+  firebaseConfig = {
+    apiKey: "AIzaSyD8rRQBvcR97vfG2QagXHZunKp3pTWdRYU",
+    authDomain: "atmosapp-b42d9.firebaseapp.com",
+    projectId: "atmosapp-b42d9",
+    storageBucket: "atmosapp-b42d9.appspot.com",
+    messagingSenderId: "170212286005",
+    appId: "1:170212286005:web:32a2ee3e41625c5018db7c",
+    measurementId: "G-M3GGYXNDT9",
+    databaseURL: "https://atmosapp-b42d9-default-rtdb.europe-west1.firebasedatabase.app/"
+  };
+  app = initializeApp(this.firebaseConfig);
+  database = getDatabase(this.app)
+
+
   constructor(public userService: UserService, private tiempoService: TiempoService) { }
 
   ngOnInit() {
     this.user = window.localStorage.getItem('user')
     this.user = JSON.parse(this.user)
-    this.userService.user=this.user
-    
-    
+    this.userService.user = this.user
+    const userRef = ref(this.database,this.user.uid)
+    get(userRef).then((snapshot) => {
+      if(snapshot.exists()){
+        console.log(snapshot.val());
+        this.listaConjuntos = snapshot.val().conjuntos
+      }
+    })
+    // const usersRef = ref(this.database, 'users');
+    // const userData = {
+    //   nombre: 'Pepe Mel',
+    //   email: 'gfwegewgerge'
+    // }
+    // push(usersRef, userData)
+
+
+
+
+    console.log(this.database);
+
+
+
     // this.data = this.tiempoService.obtener()
     // this.data = this.tiempoService.getTiempoPorLatLon(33.44,94.04)
     // this.data = this.tiempoService.getTiempoPorId(6359472)
@@ -183,36 +218,56 @@ export class MainComponent implements OnInit {
 
   addCiudad() {
     this.ciudadesConjunto.push(this.ciudadSeleccionada.id)
-
     console.log(this.ciudadesConjunto);
 
   }
-  eliminarConjunto(){
-    this.listaConjuntos.splice(this.indiceConjuntoBorrar,1)
+  eliminarConjunto() {
+    this.listaConjuntos.splice(this.indiceConjuntoBorrar, 1)
+    // BASE DE DATOS
+    const usersRef = ref(this.database, this.user.uid);
+    const userData = {
+      conjuntos: this.listaConjuntos,
+    }
+    set(usersRef, userData)
   }
-  seleccionarConjuntoBorrar(i:number){
+  seleccionarConjuntoBorrar(i: number) {
     this.indiceConjuntoBorrar = i
   }
-  seleccionarConjuntoCargar(i:number){
+  seleccionarConjuntoCargar(i: number) {
     this.indiceConjuntoCargar = i
   }
-  cargarConjunto(){
-    this.ciudadesConjunto=[]
-    this.ciudadesConjunto = this.listaConjuntos[this.indiceConjuntoCargar].ciudades
+  cargarConjunto() {
+    this.ciudadesConjunto = []
+    let newArr: any[] = []
+    this.listaConjuntos[this.indiceConjuntoCargar].ciudades.forEach((el: any) => {
+      newArr.push(el)
+    })
+    this.ciudadesConjunto = newArr
   }
-  eliminarCiudad(i: number){
-    this.ciudadesConjunto.splice(i,1)
-    
+  eliminarCiudad(i: number) {
+    this.ciudadesConjunto.splice(i, 1)
+
   }
-  guardarConjunto(nombre: string){
+  guardarConjunto(nombre: string) {
     let nuevoConjunto = {
       nombre: nombre,
       ciudades: this.ciudadesConjunto
     }
     this.listaConjuntos.push(nuevoConjunto)
-    this.ciudadesConjunto=[]
+
+    // BASE DE DATOS
+    const usersRef = ref(this.database, this.user.uid);
+    const userData = {
+      conjuntos: this.listaConjuntos,
+    }
+    set(usersRef, userData)
+
+
+
+    this.ciudadesConjunto = []
     this.nombreConjunto = ""
     console.log(this.listaConjuntos);
     console.log(nuevoConjunto);
+
   }
 }
