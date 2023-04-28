@@ -127,13 +127,26 @@
 }
 .modal-header{
     display: flex;
+    font-size: 22px;
     justify-content: center;
-}
-.containerSuperior{
 }
 .containerListadoConjuntos{
     z-index: 33;
     position: fixed;
+    left: 40px;
+    top: 70px;
+    background-color: #0071dA;
+    width: 15%;  
+    border-radius: 10px ;
+    box-shadow: 4px 4px 5px #00000099;
+
+
+}
+.containerBienvenida{
+    z-index: 33;
+    position: fixed;
+    right: 40px;
+    top: 70px;
     background-color: #0071dA;
     width: 15%;  
     border-radius: 10px ;
@@ -158,6 +171,7 @@
 }
 .conjunto{
     background-color: white;
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     height: 5vh;
@@ -167,9 +181,27 @@
     align-items: center;
     transition: all 0.4s;
 }
+
 .conjunto:hover{
     background-color: #FFFFFFaa;
     transition: all 0.4s;
+}
+.btnBienvenida{
+    background-color: white;
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+    height: 5vh;
+    border-bottom: 1px solid black;
+    padding: 4%;
+    display: flex;
+    align-items: center;
+    transition: all 0.4s;
+}
+.btnBienvenida:hover{
+    transition: all 0.4s;
+    background-color: rgb(214, 66, 66);
+    color: white;
 }
 .iconEliminarConjunto{
     color: white;
@@ -180,3 +212,4 @@
     cursor: pointer;
     transition: all 0.4s;
 }
+

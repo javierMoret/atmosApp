@@ -47,6 +47,25 @@ export class TiempoService {
         })
       )
   }
+
+  getPronosticoPorNombre(query: string,pais:string): Observable<any> {
+    return this.http.get(`https://api.openweathermap.org/data/2.5/forecast?q=${query},${pais}&lang=es&units=metric&appid=${this.apiKey}`, { responseType: 'json' })
+      .pipe(
+        map((response: any) => {
+          return response
+        })
+      )
+  }
+  getPronosticoPorId(id: number): Observable<any> {
+    return this.http.get(`https://api.openweathermap.org/data/2.5/forecast?id=${id}&lang=es&units=metric&appid=${this.apiKey}`, { responseType: 'json' })
+      .pipe(
+        map((response: any) => {
+          return response
+        })
+      )
+  }
+
+
   getCiudades() {
     return this.http.get(`../../assets/docs/city.list.json`, { responseType: 'json' })
       .pipe(

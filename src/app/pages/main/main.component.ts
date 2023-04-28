@@ -4,6 +4,7 @@ import { Ciudad } from '../../interfaces/ciudad.interface';
 import { UserService } from 'src/app/services/user.service';
 import { initializeApp } from "firebase/app";
 import { get, getDatabase, push, ref, set } from "firebase/database";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -45,7 +46,7 @@ export class MainComponent implements OnInit {
   database = getDatabase(this.app)
 
 
-  constructor(public userService: UserService, private tiempoService: TiempoService) { }
+  constructor(private router:Router, public userService: UserService, private tiempoService: TiempoService) { }
 
   ngOnInit() {
     this.user = window.localStorage.getItem('user')
@@ -128,6 +129,10 @@ export class MainComponent implements OnInit {
       this.ciudades = ciudades
       console.log(this.ciudades);
 
+    })
+    this.tiempoService.getPronosticoPorNombre('Madrid','ES').subscribe(data=>{
+      console.log(data);
+      
     })
 
 
@@ -269,5 +274,9 @@ export class MainComponent implements OnInit {
     console.log(this.listaConjuntos);
     console.log(nuevoConjunto);
 
+  }
+
+  cerrarSesion(){
+    this.router.navigate(['/login'])
   }
 }

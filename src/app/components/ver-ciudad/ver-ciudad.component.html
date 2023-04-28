@@ -33,7 +33,11 @@
                 <div class="label">Presión</div>
                 <div class="dato">{{ciudad.presion}} hPa</div>
             </div>
+            <mat-slider min="0" max="2" step="1" showTickMarks discrete [displayWith]="formatLabel">
+                <input matSliderThumb>
+              </mat-slider>
         </div>
+
     
     </div>
 </ng-container>

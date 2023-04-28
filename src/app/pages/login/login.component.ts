@@ -48,22 +48,13 @@ export class LoginComponent implements OnInit{
         const token = credential!.accessToken;
         // The signed-in user info.
         const user = result.user;
-        console.log(result);
-        // const usersRef = ref(this.database, user.uid);
-        // const userData = {
-        //   conjuntos: 'afsdf',
-        // }
-        // set(usersRef,userData)
-        
         this.userService.user = user
-        const userString = JSON.stringify(user)
-        window.localStorage.setItem('user',userString) 
 
-        
+        const userString = JSON.stringify(user)
+        window.localStorage.setItem('user',userString)
+
         this.router.navigate(['/home'])
-        
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
+
       }).catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;

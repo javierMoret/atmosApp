@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,10 @@ import { CiudadPlaceholderComponent } from './components/ciudad-placeholder/ciud
 import { LoginComponent } from './pages/login/login.component';
 import {MatIconModule} from '@angular/material/icon';
 import { MainComponent } from './pages/main/main.component';
+import { MatExpansionModule} from '@angular/material/expansion';
+import {CdkAccordionModule} from '@angular/cdk/accordion';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
 
 
 @NgModule({
@@ -26,10 +31,15 @@ import { MainComponent } from './pages/main/main.component';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    MatIconModule
+    MatIconModule,
+    MatExpansionModule,
+    CdkAccordionModule,
+    MatSliderModule
     
   ],
   providers: [],
