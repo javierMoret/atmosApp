@@ -68,7 +68,7 @@
         </div>
         <app-ciudad-placeholder *ngIf="ciudadesConjunto.length<5"></app-ciudad-placeholder>
       </div>
-      <div class="btnGuardar mt-4">
+      <div *ngIf="ciudadesConjunto.length>0" class="btnGuardar mt-4">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalGuardarConjunto">Guardar conjunto</button>
 
       </div>

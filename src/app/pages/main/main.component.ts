@@ -46,15 +46,15 @@ export class MainComponent implements OnInit {
   database = getDatabase(this.app)
 
 
-  constructor(private router:Router, public userService: UserService, private tiempoService: TiempoService) { }
+  constructor(private router: Router, public userService: UserService, private tiempoService: TiempoService) { }
 
   ngOnInit() {
     this.user = window.localStorage.getItem('user')
     this.user = JSON.parse(this.user)
     this.userService.user = this.user
-    const userRef = ref(this.database,this.user.uid)
+    const userRef = ref(this.database, this.user.uid)
     get(userRef).then((snapshot) => {
-      if(snapshot.exists()){
+      if (snapshot.exists()) {
         console.log(snapshot.val());
         this.listaConjuntos = snapshot.val().conjuntos
       }
@@ -94,6 +94,7 @@ export class MainComponent implements OnInit {
             this.fondo = 'algonublado'
             break;
           case 'nubes':
+          case 'muy nuboso':
             this.fondo = 'nublado'
             break;
           case 'lluvia':
@@ -130,9 +131,9 @@ export class MainComponent implements OnInit {
       console.log(this.ciudades);
 
     })
-    this.tiempoService.getPronosticoPorNombre('Madrid','ES').subscribe(data=>{
+    this.tiempoService.getPronosticoPorNombre('Madrid', 'ES').subscribe(data => {
       console.log(data);
-      
+
     })
 
 
@@ -191,6 +192,7 @@ export class MainComponent implements OnInit {
             this.fondo = 'algonublado'
             break;
           case 'nubes':
+          case 'muy nuboso':
             this.fondo = 'nublado'
             break;
           case 'lluvia':
@@ -276,7 +278,7 @@ export class MainComponent implements OnInit {
 
   }
 
-  cerrarSesion(){
+  cerrarSesion() {
     this.router.navigate(['/login'])
   }
 }

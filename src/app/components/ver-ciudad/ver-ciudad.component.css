@@ -1,44 +1,55 @@
-.containerCiudad{
+.containerCiudad {
     background-color: white;
     display: flex;
     flex-direction: column;
     padding: 7%;
     width: 27vh;
-    height: 30vh;
+    height: 35vh;
     border-radius: 10px;
     box-shadow: 4px 4px 5px #00000099;
     margin-right: 5vh;
 
 }
 
-.cabecera{
+.cabecera {
     display: flex;
     justify-content: space-between;
-
     font-size: 25px;
-    margin-bottom: 7%;
 }
-.label{
+
+.label {
     font-size: 18px;
 }
-.dato{
+
+.dato {
     font-size: 16px;
     color: #0071DA;
     font-weight: 500;
 }
-.datos{
+
+
+.datos {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
 
 }
-.fila{
+
+.fila {
     display: flex;
     justify-content: space-between;
 }
-.parte{
+
+.parte {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+
+.titlePronosticos {
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
 }

@@ -2,7 +2,7 @@
     background-color: #FFFFFF50;
     display: flex;
     width: 27vh;
-    height: 30vh;
+    height: 35vh;
     border-radius: 10px;
     box-shadow: 4px 4px 5px #00000055;
     justify-content: center;
@@ -13,7 +13,6 @@
     color: #FFFFFF70;
     font-size: 120px;
     border-radius: 50px;
-    margin-bottom: 15%;
 
 }
 .icono{
