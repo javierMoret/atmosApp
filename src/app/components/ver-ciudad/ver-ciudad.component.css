@@ -46,6 +46,10 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.divPronosticos{
+    display: flex;
+    flex-direction: column;
+}
 
 
 .titlePronosticos {

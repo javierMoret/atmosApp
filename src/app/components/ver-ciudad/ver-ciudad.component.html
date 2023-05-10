@@ -5,36 +5,43 @@
             <div class="temperatura">{{ciudadSeleccionada.main.temp | aproximar}}ºC</div>
         </div>
         <div class="datos">
-            <div class="fila">
+            <div *ngIf="mostrarTiempo" class="fila">
                 <div class="label">Tiempo</div>
                 <div class="dato">{{ciudadSeleccionada.weather[0].description | titlecase}}</div>
             </div>
-            <div class="fila">
+            <div *ngIf="mostrarSensacion" class="fila">
+                <div class="label">Sensación</div>
+                <div class="dato">{{ciudadSeleccionada.main.feels_like | aproximar}}ºC</div>
+            </div>
+            <div *ngIf="mostrarMaxima" class="fila">
                 <div class="label">T. Máxima</div>
                 <div class="dato">{{ciudadSeleccionada.main.temp_max | aproximar}}ºC</div>
             </div>
-            <div class="fila">
+            <div *ngIf="mostrarMinima" class="fila">
                 <div class="label">T. Mínima</div>
                 <div class="dato">{{ciudadSeleccionada.main.temp_min | aproximar}}ºC</div>
             </div>
-            <div class="fila">
+            <div *ngIf="mostrarHumedad" class="fila">
                 <div class="label">Humedad</div>
                 <div class="dato">{{ciudadSeleccionada.main.humidity}}%</div>
-
             </div>
-            <div class="fila">
+            <div *ngIf="mostrarViento" class="fila">
                 <div class="label">Viento</div>
                 <div class="dato">{{ciudadSeleccionada.wind.speed}} km/h</div>
-
             </div>
-            <div class="fila">
+            <div *ngIf="mostrarPresion" class="fila">
                 <div class="label">Presión</div>
                 <div class="dato">{{ciudadSeleccionada.main.pressure}} hPa</div>
             </div>
-            <div class="titlePronosticos mt-2">Cronología</div>
-            <mat-slider (change)="cambiarCiudad($event)" min="0" max="3" step="1" showTickMarks discrete [displayWith]="formatLabel">
-                <input matSliderThumb>
-            </mat-slider>
+
+            <div class="divPronosticos">
+                <div class="titlePronosticos">Cronología</div>
+                <mat-slider (change)="cambiarCiudad($event)" min="0" max="3" step="1" showTickMarks discrete [displayWith]="formatLabel">
+                    <input matSliderThumb>
+                </mat-slider>
+            </div>
+
+
         </div>
 
 

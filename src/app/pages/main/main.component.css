@@ -1,6 +1,6 @@
 .background{
     min-height: 100vh;
-    max-height: 100%;
+    max-height: auto;
     background-size: cover;
     padding: 3%;
     background-position: center center;
@@ -198,9 +198,26 @@
     align-items: center;
     transition: all 0.4s;
 }
+.btnFiltros{
+    background-color: white;
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+    height: 5vh;
+    border-bottom: 1px solid black;
+    padding: 4%;
+    display: flex;
+    align-items: center;
+    transition: all 0.4s;
+}
 .btnBienvenida:hover{
     transition: all 0.4s;
     background-color: rgb(214, 66, 66);
+    color: white;
+}
+.btnFiltros:hover{
+    transition: all 0.4s;
+    background-color: rgb(221, 200, 64);
     color: white;
 }
 .iconEliminarConjunto{

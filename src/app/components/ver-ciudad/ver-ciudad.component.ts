@@ -18,7 +18,14 @@ export class VerCiudadComponent implements OnInit {
   cargado: boolean = false;
   selectedValue: number = 0;
   pronosticos: Ciudad[] = [];
-  ciudadSeleccionada: any
+  ciudadSeleccionada: any;
+  @Input() mostrarTiempo!:boolean;
+  @Input() mostrarMaxima!:boolean;
+  @Input() mostrarMinima!:boolean;
+  @Input() mostrarHumedad!:boolean;
+  @Input() mostrarViento!:boolean;
+  @Input() mostrarPresion!:boolean;
+  @Input() mostrarSensacion!:boolean;
 
 
   constructor(private tiempoService: TiempoService) { }
@@ -86,9 +93,9 @@ export class VerCiudadComponent implements OnInit {
 
     switch (value) {
       case 0:
-        return 'Ahora'
+        return 'Hoy'
       case 1:
-        return format(day1, 'EEEE', { locale: es })
+        return 'Mañana'
       case 2:
         return format(day2, 'EEEE', { locale: es })
       case 3:

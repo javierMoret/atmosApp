@@ -17,6 +17,7 @@ import { MatExpansionModule} from '@angular/material/expansion';
 import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
+import { PrimeraMayusculaPipe } from './pipes/primera-mayuscula.pipe';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { MatSliderModule } from '@angular/material/slider';
     ListadoFavoritosComponent,
     CiudadPlaceholderComponent,
     LoginComponent,
-    MainComponent
+    MainComponent,
+    PrimeraMayusculaPipe
   ],
   imports: [
     BrowserModule,

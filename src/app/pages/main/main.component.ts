@@ -31,6 +31,14 @@ export class MainComponent implements OnInit {
   nombreConjunto: string = ""
   indiceConjuntoBorrar: any
   indiceConjuntoCargar: any
+  filtros: any
+  mostrarTiempo: boolean = true;
+  mostrarMaxima: boolean = true;
+  mostrarMinima: boolean = true;
+  mostrarHumedad: boolean = true;
+  mostrarSensacion: boolean = false;
+  mostrarViento: boolean = false;
+  mostrarPresion: boolean = false;
 
   firebaseConfig = {
     apiKey: "AIzaSyD8rRQBvcR97vfG2QagXHZunKp3pTWdRYU",
@@ -46,6 +54,7 @@ export class MainComponent implements OnInit {
   database = getDatabase(this.app)
 
 
+
   constructor(private router: Router, public userService: UserService, private tiempoService: TiempoService) { }
 
   ngOnInit() {
@@ -56,18 +65,37 @@ export class MainComponent implements OnInit {
     get(userRef).then((snapshot) => {
       if (snapshot.exists()) {
         console.log(snapshot.val());
-        this.listaConjuntos = snapshot.val().conjuntos
+        if (snapshot.val().conjuntos) {
+          this.listaConjuntos = snapshot.val().conjuntos
+        } else {
+          this.listaConjuntos = []
+        }
+        if (snapshot.val().filtros) {
+          this.filtros = snapshot.val().filtros
+          console.log(this.filtros);
+        } else {
+          this.filtros = {
+            'tiempo': this.mostrarTiempo,
+            'maxima': this.mostrarMaxima,
+            'minima': this.mostrarMinima,
+            'sensacion': this.mostrarSensacion,
+            'humedad': this.mostrarHumedad,
+            'viento': this.mostrarViento,
+            'presion': this.mostrarPresion
+          }
+          const userRef = ref(this.database, this.user.uid)
+          const userData = {
+            conjuntos: this.listaConjuntos,
+            filtros: this.filtros
+          }
+          set(userRef, userData)
+          
+
+
+        }
       }
     })
-    // const usersRef = ref(this.database, 'users');
-    // const userData = {
-    //   nombre: 'Pepe Mel',
-    //   email: 'gfwegewgerge'
-    // }
-    // push(usersRef, userData)
-
-
-
+    
 
     console.log(this.database);
 
@@ -99,6 +127,7 @@ export class MainComponent implements OnInit {
             break;
           case 'lluvia':
           case 'lluvia ligera':
+          case 'lluvia moderada':
             this.fondo = 'lluvia'
             break;
           case 'nieve':
@@ -155,6 +184,15 @@ export class MainComponent implements OnInit {
     })
   }
 
+  guardarFiltros(){
+    const userRef = ref(this.database, this.user.uid)
+    const userData = {
+      conjuntos: this.listaConjuntos,
+      filtros: this.filtros
+    }
+    set(userRef, userData)
+  }
+
   buscar(busqueda: string) {
     if (busqueda.length > 2) {
       this.resultados = []
@@ -197,6 +235,7 @@ export class MainComponent implements OnInit {
             break;
           case 'lluvia':
           case 'lluvia ligera':
+          case 'lluvia moderada':
             this.fondo = 'lluvia'
             break;
           case 'nieve':
@@ -234,6 +273,7 @@ export class MainComponent implements OnInit {
     const usersRef = ref(this.database, this.user.uid);
     const userData = {
       conjuntos: this.listaConjuntos,
+      filtros: this.filtros
     }
     set(usersRef, userData)
   }
@@ -266,6 +306,7 @@ export class MainComponent implements OnInit {
     const usersRef = ref(this.database, this.user.uid);
     const userData = {
       conjuntos: this.listaConjuntos,
+      filtros: this.filtros
     }
     set(usersRef, userData)
 

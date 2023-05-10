@@ -50,6 +50,10 @@
         <div class="containerBienvenida">
           <div class="titulo">¡Bienvenid@, {{user.displayName}}!</div>
           <div class="conjuntos">
+            <div class="btnFiltros" data-bs-toggle="modal" data-bs-target="#modalGestionarFiltros">
+              Gestionar filtros
+              <mat-icon fontIcon="settings" ></mat-icon>
+            </div>
             <div class="btnBienvenida" data-bs-toggle="modal" data-bs-target="#modalCerrarSesion">
               Cerrar sesion
               <mat-icon fontIcon="logout" ></mat-icon>
@@ -63,12 +67,12 @@
       
       <div class="containerConjunto mt-5">
         <div *ngFor="let ciudad of ciudadesConjunto; let i=index" class="aa">
-          <app-ver-ciudad [idCiudad]="ciudad"></app-ver-ciudad>
+          <app-ver-ciudad [idCiudad]="ciudad" [mostrarTiempo]="filtros.tiempo" [mostrarSensacion]="filtros.sensacion" [mostrarPresion]="filtros.presion" [mostrarMinima]="filtros.minima" [mostrarMaxima]="filtros.maxima" [mostrarHumedad]="filtros.humedad" [mostrarViento]="filtros.viento"></app-ver-ciudad>
           <button (click)="eliminarCiudad(i)" type="button" class="btn btn-danger mt-2">Eliminar</button>
         </div>
         <app-ciudad-placeholder *ngIf="ciudadesConjunto.length<5"></app-ciudad-placeholder>
       </div>
-      <div *ngIf="ciudadesConjunto.length>0" class="btnGuardar mt-4">
+      <div *ngIf="ciudadesConjunto.length>0" class="btnGuardar mt-3">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalGuardarConjunto">Guardar conjunto</button>
 
       </div>
@@ -101,6 +105,50 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-success" [disabled]="nombreConjunto.trim()==''" (click)="guardarConjunto(nombreConjunto)" data-bs-dismiss="modal">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalGestionarFiltros" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="exampleModalLabel">Gestionar filtros</div>
+      </div>
+      <div class="modal-body">
+        <div class="form-check form-switch">
+          <input class="form-check-input" (change)="guardarFiltros()" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="filtros.tiempo">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar tiempo</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" (change)="guardarFiltros()" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="filtros.maxima">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar temperatura máxima</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" (change)="guardarFiltros()" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="filtros.minima">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar temperatura mínima</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" (change)="guardarFiltros()" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="filtros.sensacion">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar sensación térmica</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" (change)="guardarFiltros()" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="filtros.humedad">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar humedad</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" (change)="guardarFiltros()" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="filtros.presion">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar presión</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" (change)="guardarFiltros()" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="filtros.viento">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar viento</label>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="guardarFiltros()" data-bs-dismiss="modal">Guardar filtros</button>
       </div>
     </div>
   </div>
