@@ -34,7 +34,7 @@
                 <div class="dato">{{ciudadSeleccionada.main.pressure}} hPa</div>
             </div>
 
-            <div class="divPronosticos">
+            <div *ngIf="filtrosDesactivados()" class="divPronosticos">
                 <div class="titlePronosticos">Cronología</div>
                 <mat-slider (change)="cambiarCiudad($event)" min="0" max="3" step="1" showTickMarks discrete [displayWith]="formatLabel">
                     <input matSliderThumb>

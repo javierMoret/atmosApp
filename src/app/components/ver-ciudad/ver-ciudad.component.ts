@@ -37,7 +37,6 @@ export class VerCiudadComponent implements OnInit {
 
   ngOnInit(): void {
     this.tiempoService.getTiempoPorId(this.idCiudad).subscribe(data => {
-      console.log(data);
       this.pronosticos.push(data)
       this.ciudadSeleccionada=data
       this.ciudad = {
@@ -53,15 +52,12 @@ export class VerCiudadComponent implements OnInit {
         tiempo: data.weather[0].description
       };
       this.cargado = true;
-      console.log(data);
 
     })
     this.tiempoService.getPronosticoPorId(this.idCiudad).subscribe(data => {
-      console.log(data);
       this.pronosticos.push(data.list[8])
       this.pronosticos.push(data.list[16])
       this.pronosticos.push(data.list[24])
-      console.log(this.pronosticos);
       
       
       
@@ -105,6 +101,10 @@ export class VerCiudadComponent implements OnInit {
       default:
         return ''
     }
+  }
+
+  filtrosDesactivados(){
+    return this.mostrarHumedad || this.mostrarMaxima ||this.mostrarMinima || this.mostrarPresion || this.mostrarSensacion || this.mostrarTiempo || this.mostrarViento
   }
 
 

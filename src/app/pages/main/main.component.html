@@ -122,6 +122,10 @@
           <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar tiempo</label>
         </div>
         <div class="form-check form-switch">
+          <input class="form-check-input" (change)="guardarFiltros()" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="filtros.sensacion">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar sensación térmica</label>
+        </div>
+        <div class="form-check form-switch">
           <input class="form-check-input" (change)="guardarFiltros()" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="filtros.maxima">
           <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar temperatura máxima</label>
         </div>
@@ -130,20 +134,16 @@
           <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar temperatura mínima</label>
         </div>
         <div class="form-check form-switch">
-          <input class="form-check-input" (change)="guardarFiltros()" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="filtros.sensacion">
-          <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar sensación térmica</label>
-        </div>
-        <div class="form-check form-switch">
           <input class="form-check-input" (change)="guardarFiltros()" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="filtros.humedad">
           <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar humedad</label>
         </div>
         <div class="form-check form-switch">
-          <input class="form-check-input" (change)="guardarFiltros()" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="filtros.presion">
-          <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar presión</label>
-        </div>
-        <div class="form-check form-switch">
           <input class="form-check-input" (change)="guardarFiltros()" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="filtros.viento">
           <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar viento</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" (change)="guardarFiltros()" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="filtros.presion">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Mostrar presión</label>
         </div>
       </div>
       <div class="modal-footer">

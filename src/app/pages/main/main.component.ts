@@ -22,7 +22,13 @@ export class MainComponent implements OnInit {
   lonUser: number | undefined;
   resultados: any = [];
   ciudades: any;
-  ciudadSeleccionada: any;
+  ciudadSeleccionada: any = {
+    name: "",
+    weather: [{}],
+    main: {},
+    wind: {},
+    sys: {}
+  };
   query: string = "";
   ciudadesConjunto: number[] = []
   listaConjuntos: any[] = []
@@ -31,7 +37,15 @@ export class MainComponent implements OnInit {
   nombreConjunto: string = ""
   indiceConjuntoBorrar: any
   indiceConjuntoCargar: any
-  filtros: any
+  filtros: any = {
+    'tiempo': false,
+    'maxima': false,
+    'minima': false,
+    'sensacion': false,
+    'humedad': false,
+    'viento': false,
+    'presion': false
+  }
   mostrarTiempo: boolean = true;
   mostrarMaxima: boolean = true;
   mostrarMinima: boolean = true;
@@ -64,7 +78,6 @@ export class MainComponent implements OnInit {
     const userRef = ref(this.database, this.user.uid)
     get(userRef).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
         if (snapshot.val().conjuntos) {
           this.listaConjuntos = snapshot.val().conjuntos
         } else {
@@ -72,7 +85,6 @@ export class MainComponent implements OnInit {
         }
         if (snapshot.val().filtros) {
           this.filtros = snapshot.val().filtros
-          console.log(this.filtros);
         } else {
           this.filtros = {
             'tiempo': this.mostrarTiempo,
@@ -89,15 +101,14 @@ export class MainComponent implements OnInit {
             filtros: this.filtros
           }
           set(userRef, userData)
-          
+
 
 
         }
       }
     })
-    
 
-    console.log(this.database);
+
 
 
 
@@ -146,27 +157,16 @@ export class MainComponent implements OnInit {
         this.cargado = true;
         this.query = `${this.ciudadSeleccionada.name} (${this.ciudadSeleccionada.sys.country})`;
         document.getElementById('wicon')?.setAttribute('src', this.iconUrl)
-        console.log('El usuario ha aceptado la ubicación y vive en: ', this.data.name);
-        console.log(data);
 
 
       })
     }, (error) => {
-      console.log('El usuario ha rechazado la ubicación');
 
     });
     this.tiempoService.getCiudades().subscribe(ciudades => {
       this.ciudades = ciudades
-      console.log(this.ciudades);
 
     })
-    this.tiempoService.getPronosticoPorNombre('Madrid', 'ES').subscribe(data => {
-      console.log(data);
-
-    })
-
-
-
   }
 
   cambiarCiudad() {
@@ -178,13 +178,11 @@ export class MainComponent implements OnInit {
 
       }
       document.getElementById('wicon')?.setAttribute('src', this.iconUrl)
-      console.log('El usuario ha aceptado la ubicación y vive en: ', this.data.name);
-      console.log(data);
 
     })
   }
 
-  guardarFiltros(){
+  guardarFiltros() {
     const userRef = ref(this.database, this.user.uid)
     const userData = {
       conjuntos: this.listaConjuntos,
@@ -201,11 +199,19 @@ export class MainComponent implements OnInit {
           this.resultados.push(ciudad)
         } else {
           if (ciudad.name.toLowerCase().startsWith(busqueda.toLowerCase())) {
-            this.resultados.push(ciudad)
+            if (this.resultados.length != 0) {
+              let ciudadRepetida = this.resultados.find((resultado: any) => {
+                return resultado.name === ciudad.name && resultado.country === ciudad.country
+              })
+              if (!ciudadRepetida) {
+                this.resultados.push(ciudad)
+              }
+            } else {
+              this.resultados.push(ciudad)
+            }
           }
         }
       })
-      console.log(this.resultados);
     }
 
 
@@ -220,7 +226,6 @@ export class MainComponent implements OnInit {
 
     this.tiempoService.getTiempoPorNombre(ciudad, pais).subscribe(res => {
       if (res != undefined && res != "") {
-        console.log(res);
         switch (res.weather[0].description) {
           case 'cielo claro':
             this.fondo = 'soleado'
@@ -264,7 +269,6 @@ export class MainComponent implements OnInit {
 
   addCiudad() {
     this.ciudadesConjunto.push(this.ciudadSeleccionada.id)
-    console.log(this.ciudadesConjunto);
 
   }
   eliminarConjunto() {
@@ -314,8 +318,6 @@ export class MainComponent implements OnInit {
 
     this.ciudadesConjunto = []
     this.nombreConjunto = ""
-    console.log(this.listaConjuntos);
-    console.log(nuevoConjunto);
 
   }
 
