@@ -1,13 +1,12 @@
   <ng-container *ngIf="user; else error403">
-    <div class="background" style="background-image: url('../../../assets/images/{{fondo}}.jpg');">
+    <div class="background" [ngClass]="{'borderEdicion': edicionActiva}" style="background-image: url('../../../assets/images/{{fondo}}.jpg');">
       <div class="containerSuperior">
         <div *ngIf="listaConjuntos.length>0" class="containerListadoConjuntos">
           <div class="titulo">Conjuntos guardados</div>
           <div class="conjuntos">
             <div class="conjunto" (click)="seleccionarConjuntoCargar(i)" data-bs-toggle="modal" data-bs-target="#modalCargarConjunto" *ngFor="let conjunto of listaConjuntos; let i=index">
               {{conjunto.nombre | titlecase}}
-              <mat-icon fontIcon="delete" class="iconEliminarConjunto" (click)="seleccionarConjuntoBorrar(i)" data-bs-toggle="modal" data-bs-target="#modalEliminarConjunto" ></mat-icon>
-
+              <mat-icon *ngIf="edicionActiva" fontIcon="delete" class="iconEliminarConjunto" (click)="seleccionarConjuntoBorrar(i)" data-bs-toggle="modal" data-bs-target="#modalEliminarConjunto" ></mat-icon>
             </div>
           </div>
 
@@ -50,11 +49,17 @@
         <div class="containerBienvenida">
           <div class="titulo">¡Bienvenid@, {{user.displayName}}!</div>
           <div class="conjuntos">
-            <div class="btnFiltros" data-bs-toggle="modal" data-bs-target="#modalGestionarFiltros">
+            <div class="btnConjuntos" id="btnFiltros" data-bs-toggle="modal" data-bs-target="#modalGestionarFiltros">
               Gestionar filtros
               <mat-icon fontIcon="settings" ></mat-icon>
             </div>
-            <div class="btnBienvenida" data-bs-toggle="modal" data-bs-target="#modalCerrarSesion">
+            <div class="btnConjuntos" id="btnEdicion">
+              Activar edición
+              <div class="form-check form-switch">
+                <input (click)="openSnackBar(edicionActiva)" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" [(ngModel)]="edicionActiva">
+              </div>
+            </div>
+            <div class="btnConjuntos" id="btnCerrarSesion" data-bs-toggle="modal" data-bs-target="#modalCerrarSesion">
               Cerrar sesion
               <mat-icon fontIcon="logout" ></mat-icon>
             </div>
@@ -68,13 +73,12 @@
       <div class="containerConjunto mt-5">
         <div *ngFor="let ciudad of ciudadesConjunto; let i=index" class="aa">
           <app-ver-ciudad [idCiudad]="ciudad" [mostrarTiempo]="filtros.tiempo" [mostrarSensacion]="filtros.sensacion" [mostrarPresion]="filtros.presion" [mostrarMinima]="filtros.minima" [mostrarMaxima]="filtros.maxima" [mostrarHumedad]="filtros.humedad" [mostrarViento]="filtros.viento"></app-ver-ciudad>
-          <button (click)="eliminarCiudad(i)" type="button" class="btn btn-danger mt-2">Eliminar</button>
+          <button *ngIf="edicionActiva" (click)="eliminarCiudad(i)" type="button" class="btn btn-danger mt-2">Eliminar</button>
         </div>
         <app-ciudad-placeholder *ngIf="ciudadesConjunto.length<5"></app-ciudad-placeholder>
       </div>
       <div *ngIf="ciudadesConjunto.length>0" class="btnGuardar mt-3">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalGuardarConjunto">Guardar conjunto</button>
-
       </div>
     </div>
   

@@ -5,6 +5,7 @@ import { UserService } from 'src/app/services/user.service';
 import { initializeApp } from "firebase/app";
 import { get, getDatabase, push, ref, set } from "firebase/database";
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-main',
@@ -54,6 +55,8 @@ export class MainComponent implements OnInit {
   mostrarViento: boolean = false;
   mostrarPresion: boolean = false;
 
+  edicionActiva: boolean = false;
+
   firebaseConfig = {
     apiKey: "AIzaSyD8rRQBvcR97vfG2QagXHZunKp3pTWdRYU",
     authDomain: "atmosapp-b42d9.firebaseapp.com",
@@ -69,7 +72,7 @@ export class MainComponent implements OnInit {
 
 
 
-  constructor(private router: Router, public userService: UserService, private tiempoService: TiempoService) { }
+  constructor(private _snackBar: MatSnackBar, private router: Router, public userService: UserService, private tiempoService: TiempoService) { }
 
   ngOnInit() {
     this.user = window.localStorage.getItem('user')
@@ -161,11 +164,49 @@ export class MainComponent implements OnInit {
 
       })
     }, (error) => {
+      this.tiempoService.getTiempoPorNombre('Madrid', 'ES').subscribe(data => {
+        this.data = data;
+        this.iconCode = data.weather[0].icon;
+        this.iconUrl = "http://openweathermap.org/img/w/" + this.iconCode + ".png";
+        this.ciudadSeleccionada = data;
+        switch (data.weather[0].description) {
+          case 'cielo claro':
+            this.fondo = 'soleado'
+            break;
+          case 'algo de nubes':
+          case 'nubes dispersas':
+            this.fondo = 'algonublado'
+            break;
+          case 'nubes':
+          case 'muy nuboso':
+            this.fondo = 'nublado'
+            break;
+          case 'lluvia':
+          case 'lluvia ligera':
+          case 'lluvia moderada':
+            this.fondo = 'lluvia'
+            break;
+          case 'nieve':
+            this.fondo = 'nieve'
+            break;
+          case 'tormenta':
+            this.fondo = 'tormenta'
+            break;
+          case 'niebla':
+          case 'bruma':
+            this.fondo = 'niebla'
+            break;
+          default:
+            this.fondo = 'soleado'
+        }
+        this.cargado = true;
+        this.query = `${this.ciudadSeleccionada.name} (${this.ciudadSeleccionada.sys.country})`;
+        document.getElementById('wicon')?.setAttribute('src', this.iconUrl)
+      });
+      this.tiempoService.getCiudades().subscribe(ciudades => {
+        this.ciudades = ciudades
 
-    });
-    this.tiempoService.getCiudades().subscribe(ciudades => {
-      this.ciudades = ciudades
-
+      })
     })
   }
 
@@ -323,5 +364,18 @@ export class MainComponent implements OnInit {
 
   cerrarSesion() {
     this.router.navigate(['/login'])
+  }
+
+  openSnackBar(edicion: boolean) {
+    if (edicion) {
+      this._snackBar.open('El modo edición ha sido desactivado', 'Aceptar', {
+        verticalPosition: 'top'
+      });
+    } else {
+      this._snackBar.open('El modo edición ha sido activado', 'Aceptar', {
+        verticalPosition: 'top',
+      });
+
+    }
   }
 }

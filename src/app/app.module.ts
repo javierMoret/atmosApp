@@ -18,6 +18,7 @@ import {CdkAccordionModule} from '@angular/cdk/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { PrimeraMayusculaPipe } from './pipes/primera-mayuscula.pipe';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { PrimeraMayusculaPipe } from './pipes/primera-mayuscula.pipe';
     MatIconModule,
     MatExpansionModule,
     CdkAccordionModule,
-    MatSliderModule
+    MatSliderModule,
+    MatSnackBarModule
     
   ],
   providers: [],

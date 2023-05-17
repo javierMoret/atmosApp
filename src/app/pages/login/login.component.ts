@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, getRedirectResult, signInWithRedirect } from "firebase/auth";
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { getDatabase, push, ref, set } from 'firebase/database';
@@ -12,7 +12,7 @@ const provider = new GoogleAuthProvider();
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     window.localStorage.removeItem('user')
@@ -32,15 +32,17 @@ export class LoginComponent implements OnInit{
   app = initializeApp(this.firebaseConfig);
   analytics = getAnalytics(this.app);
   auth = getAuth();
+  
   database = getDatabase(this.app)
 
 
-  constructor(private userService: UserService, private router: Router){}
+  constructor(private userService: UserService, private router: Router) { }
 
   loginDesactivado() {
     alert('El inicio de sesión por correo electrónico está desactivado por el momento. Prueba a través de Google.')
   }
   call_login_google() {
+
     signInWithPopup(this.auth, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
@@ -65,6 +67,37 @@ export class LoginComponent implements OnInit{
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
       });
+
+    // signInWithRedirect(this.auth, provider);
+    // getRedirectResult(this.auth)
+    //   .then((result) => {
+    //     // This gives you a Google Access Token. You can use it to access Google APIs.
+    //     console.log(result);
+        
+    //     const credential = GoogleAuthProvider.credentialFromResult(result!);
+    //     const token = credential!.accessToken;
+    //     const user = result!.user;
+
+    //     this.userService.user = user
+
+    //     const userString = JSON.stringify(user)
+    //     window.localStorage.setItem('user', userString)
+
+    //     this.router.navigate(['/home'])
+
+    //     // The signed-in user info.
+    //     // IdP data available using getAdditionalUserInfo(result)
+    //     // ...
+    //   }).catch((error) => {
+    //     // Handle Errors here.
+    //     const errorCode = error.code;
+    //     const errorMessage = error.message;
+        
+    //     // The email of the user's account used.
+    //     // The AuthCredential type that was used.
+    //     const credential = GoogleAuthProvider.credentialFromError(error);
+    //     // ...
+    //   });
   }
 
 }
