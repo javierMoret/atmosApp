@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TiempoService } from '../../services/tiempo.service';
-import { Ciudad } from '../../interfaces/ciudad.interface';
 import { UserService } from 'src/app/services/user.service';
 import { initializeApp } from "firebase/app";
 import { get, getDatabase, push, ref, set } from "firebase/database";
@@ -113,12 +112,6 @@ export class MainComponent implements OnInit {
 
 
 
-
-
-    // this.data = this.tiempoService.obtener()
-    // this.data = this.tiempoService.getTiempoPorLatLon(33.44,94.04)
-    // this.data = this.tiempoService.getTiempoPorId(6359472)
-
     navigator.geolocation.getCurrentPosition((position) => {
       this.latUser = position.coords.latitude;
       this.lonUser = position.coords.longitude;
@@ -127,36 +120,7 @@ export class MainComponent implements OnInit {
         this.iconCode = data.weather[0].icon;
         this.iconUrl = "http://openweathermap.org/img/w/" + this.iconCode + ".png";
         this.ciudadSeleccionada = data;
-        switch (data.weather[0].description) {
-          case 'cielo claro':
-            this.fondo = 'soleado'
-            break;
-          case 'algo de nubes':
-          case 'nubes dispersas':
-            this.fondo = 'algonublado'
-            break;
-          case 'nubes':
-          case 'muy nuboso':
-            this.fondo = 'nublado'
-            break;
-          case 'lluvia':
-          case 'lluvia ligera':
-          case 'lluvia moderada':
-            this.fondo = 'lluvia'
-            break;
-          case 'nieve':
-            this.fondo = 'nieve'
-            break;
-          case 'tormenta':
-            this.fondo = 'tormenta'
-            break;
-          case 'niebla':
-          case 'bruma':
-            this.fondo = 'niebla'
-            break;
-          default:
-            this.fondo = 'soleado'
-        }
+        this.asignarFondo(data.weather[0].description)
         this.cargado = true;
         this.query = `${this.ciudadSeleccionada.name} (${this.ciudadSeleccionada.sys.country})`;
         document.getElementById('wicon')?.setAttribute('src', this.iconUrl)
@@ -169,36 +133,7 @@ export class MainComponent implements OnInit {
         this.iconCode = data.weather[0].icon;
         this.iconUrl = "http://openweathermap.org/img/w/" + this.iconCode + ".png";
         this.ciudadSeleccionada = data;
-        switch (data.weather[0].description) {
-          case 'cielo claro':
-            this.fondo = 'soleado'
-            break;
-          case 'algo de nubes':
-          case 'nubes dispersas':
-            this.fondo = 'algonublado'
-            break;
-          case 'nubes':
-          case 'muy nuboso':
-            this.fondo = 'nublado'
-            break;
-          case 'lluvia':
-          case 'lluvia ligera':
-          case 'lluvia moderada':
-            this.fondo = 'lluvia'
-            break;
-          case 'nieve':
-            this.fondo = 'nieve'
-            break;
-          case 'tormenta':
-            this.fondo = 'tormenta'
-            break;
-          case 'niebla':
-          case 'bruma':
-            this.fondo = 'niebla'
-            break;
-          default:
-            this.fondo = 'soleado'
-        }
+        this.asignarFondo(data.weather[0].description)
         this.cargado = true;
         this.query = `${this.ciudadSeleccionada.name} (${this.ciudadSeleccionada.sys.country})`;
         document.getElementById('wicon')?.setAttribute('src', this.iconUrl)
@@ -214,12 +149,44 @@ export class MainComponent implements OnInit {
       this.data = data;
       this.iconCode = data.weather[0].icon;
       this.iconUrl = "http://openweathermap.org/img/w/" + this.iconCode + ".png";
-      switch (data.weather[0].description) {
-
-      }
+      this.asignarFondo(data.weather[0].description)
       document.getElementById('wicon')?.setAttribute('src', this.iconUrl)
 
     })
+  }
+
+  asignarFondo(tiempo: string){
+    switch (tiempo) {
+      case 'cielo claro':
+        this.fondo = 'soleado'
+        break;
+      case 'algo de nubes':
+      case 'nubes dispersas':
+        this.fondo = 'algonublado'
+        break;
+      case 'nubes':
+      case 'muy nuboso':
+        this.fondo = 'nublado'
+        break;
+      case 'lluvia':
+      case 'lluvia ligera':
+      case 'lluvia moderada':
+      case 'chubasco de ligera intensidad':
+        this.fondo = 'lluvia'
+        break;
+      case 'nieve':
+        this.fondo = 'nieve'
+        break;
+      case 'tormenta':
+        this.fondo = 'tormenta'
+        break;
+      case 'niebla':
+      case 'bruma':
+        this.fondo = 'niebla'
+        break;
+      default:
+        this.fondo = 'soleado'
+    }
   }
 
   guardarFiltros() {
@@ -266,37 +233,7 @@ export class MainComponent implements OnInit {
 
     this.tiempoService.getTiempoPorNombre(ciudad, pais).subscribe(res => {
       if (res != undefined && res != "") {
-        switch (res.weather[0].description) {
-          case 'cielo claro':
-            this.fondo = 'soleado'
-            break;
-          case 'algo de nubes':
-          case 'nubes dispersas':
-            this.fondo = 'algonublado'
-            break;
-          case 'nubes':
-          case 'muy nuboso':
-            this.fondo = 'nublado'
-            break;
-          case 'lluvia':
-          case 'lluvia ligera':
-          case 'lluvia moderada':
-            this.fondo = 'lluvia'
-            break;
-          case 'nieve':
-            this.fondo = 'nieve'
-            break;
-          case 'tormenta':
-            this.fondo = 'tormenta'
-            break;
-          case 'niebla':
-          case 'bruma':
-            this.fondo = 'niebla'
-            break;
-          default:
-            this.fondo = 'soleado'
-        }
-
+      this.asignarFondo(res.weather[0].description)
         this.ciudadSeleccionada = res;
         this.iconCode = res.weather[0].icon;
         this.iconUrl = "http://openweathermap.org/img/w/" + this.iconCode + ".png";

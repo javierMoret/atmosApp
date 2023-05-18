@@ -11,16 +11,6 @@ export class TiempoService {
 
   constructor(private http: HttpClient) { }
 
-  obtener() {
-    this.http.get(`http://api.openweathermap.org/data/2.5/forecast?id=524901&lang=es&units=metric&appid=${this.apiKey}`, { responseType: 'json' }).subscribe(
-      data => {
-        console.log('PRUEBA')
-        console.log(data)
-        return data
-      }
-
-    );
-  }
 
   getTiempoPorLatLon(lat: number, lon: number): Observable<any> {
     return this.http.get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&lang=es&units=metric&appid=${this.apiKey}`, { responseType: 'json' })

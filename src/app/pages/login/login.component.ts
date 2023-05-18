@@ -68,36 +68,6 @@ export class LoginComponent implements OnInit {
         // ...
       });
 
-    // signInWithRedirect(this.auth, provider);
-    // getRedirectResult(this.auth)
-    //   .then((result) => {
-    //     // This gives you a Google Access Token. You can use it to access Google APIs.
-    //     console.log(result);
-        
-    //     const credential = GoogleAuthProvider.credentialFromResult(result!);
-    //     const token = credential!.accessToken;
-    //     const user = result!.user;
-
-    //     this.userService.user = user
-
-    //     const userString = JSON.stringify(user)
-    //     window.localStorage.setItem('user', userString)
-
-    //     this.router.navigate(['/home'])
-
-    //     // The signed-in user info.
-    //     // IdP data available using getAdditionalUserInfo(result)
-    //     // ...
-    //   }).catch((error) => {
-    //     // Handle Errors here.
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-        
-    //     // The email of the user's account used.
-    //     // The AuthCredential type that was used.
-    //     const credential = GoogleAuthProvider.credentialFromError(error);
-    //     // ...
-    //   });
   }
 
 }
