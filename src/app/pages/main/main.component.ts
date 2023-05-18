@@ -203,10 +203,9 @@ export class MainComponent implements OnInit {
         this.query = `${this.ciudadSeleccionada.name} (${this.ciudadSeleccionada.sys.country})`;
         document.getElementById('wicon')?.setAttribute('src', this.iconUrl)
       });
-      this.tiempoService.getCiudades().subscribe(ciudades => {
-        this.ciudades = ciudades
-
-      })
+    })
+    this.tiempoService.getCiudades().subscribe(ciudades => {
+      this.ciudades = ciudades
     })
   }
 

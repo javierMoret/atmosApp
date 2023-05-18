@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { PrimeraMayusculaPipe } from './pipes/primera-mayuscula.pipe';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatExpansionModule,
     CdkAccordionModule,
     MatSliderModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    DragDropModule
     
   ],
   providers: [],
