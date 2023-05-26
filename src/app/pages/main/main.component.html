@@ -93,6 +93,11 @@
       <button type="button" class="btn btn-primary" data-bs-toggle="modal"
         data-bs-target="#modalGuardarConjunto">Guardar conjunto</button>
     </div>
+    <div *ngIf="edicionActiva" class="containerPdf"> 
+      <a target="_blank" href="https://drive.google.com/file/d/1YBixoteEKsaJa5rosH4WJGiaJ9qKQ7QS/view">
+        <mat-icon class="iconoPdf" >description</mat-icon>
+      </a>
+    </div>
   </div>
 
 </ng-container>
@@ -236,3 +241,4 @@
     </div>
   </div>
 </div>
+

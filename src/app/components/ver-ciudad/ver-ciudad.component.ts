@@ -58,9 +58,6 @@ export class VerCiudadComponent implements OnInit {
       this.pronosticos.push(data.list[8])
       this.pronosticos.push(data.list[16])
       this.pronosticos.push(data.list[24])
-      
-      
-      
     })
   }
   primeraMayuscula(cadena: string): string {

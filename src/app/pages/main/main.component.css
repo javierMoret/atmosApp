@@ -221,5 +221,19 @@
     color: red;
     transition: all 0.4s;
 }
+.containerPdf{
+    position: fixed;
+    left: 50px;
+    bottom: 50px;
+}
+.iconoPdf{
+    color: white;
+    transition: all 0.3s;
+}
+.iconoPdf:hover{
+    transform: scale(1.5);
+    transition: all 0.3s;
+    color: red;
+}
 
 
