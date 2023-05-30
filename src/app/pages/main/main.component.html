@@ -1,4 +1,4 @@
-<ng-container *ngIf="user; else error403">
+<ng-container class="a" *ngIf="user; else error403">
   <div class="background" [ngClass]="{'borderEdicion': edicionActiva}"
     style="background-image: url('../../../assets/images/{{fondo}}.jpg');">
     <div class="containerSuperior">
@@ -61,7 +61,7 @@
             Gestionar filtros
             <mat-icon fontIcon="settings"></mat-icon>
           </div>
-          <div class="btnConjuntos" (click)="openSnackBar(edicionActiva)" (click)="edicionActiva=!edicionActiva" id="btnEdicion">
+          <div class="btnConjuntos" id="btnEdicion">
             Activar edición
             <div class="form-check form-switch">
               <input (click)="openSnackBar(edicionActiva)" class="form-check-input" type="checkbox" role="switch"
